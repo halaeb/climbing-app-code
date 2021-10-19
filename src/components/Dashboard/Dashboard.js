@@ -12,6 +12,7 @@ function Dashboard(){
   
   const addClimb = (climb) => {
     const newClimbList =[climb,...climbList];
+    newClimbList.sort((a, b) => (a.date>b.date ? -1 : 1))
     setClimbList(newClimbList);
     /* check if user is in userList. 
     T-update nClimbs. F-addUser*/
@@ -35,17 +36,19 @@ function Dashboard(){
     newUserList = newUserList.slice(0, userIndex).concat(newUserList.slice(userIndex+1, newUserList.length));
     setUserList(newUserList);
   }
-
   
   const updateUser = (username, value) => {
     const newUserList = [...userList];
     const userIndex = newUserList.findIndex(user => user.username === username);
     newUserList[userIndex].nClimbs = newUserList[userIndex].nClimbs +value;
+    /*sort newUserList*/
+    newUserList.sort((a, b) => (a.nClimbs>b.nClimbs ? -1 : 1))
     setUserList(newUserList);
     /*check if nClimbs=0. if so, call function to delete user*/
-    if(userList[userIndex].nClimbs==0) {
+    if(userList[userIndex].nClimbs===0) {
       deleteUser(username); }
   }
+
 
   const addLike = (climbToUpdate) => {
     const newClimbList = [...climbList];
@@ -69,6 +72,7 @@ function Dashboard(){
 
         <div className='climb-list-container'>
           <h1 className='dash-title'>Recent Climbs</h1>
+          
             <Climbs climbList={climbList} addLike={addLike} deleteClimb={deleteClimb}/>
         </div>
         <div className='climber-list-container'>
