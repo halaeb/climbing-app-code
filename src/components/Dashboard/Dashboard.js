@@ -1,15 +1,41 @@
-import React, { useState } from 'react';
-import Form from '../Form'
-import Climbs from '../Climb/Climbs'
-import Users from '../Users/Users'
+import React, { useState, useEffect } from 'react';
+import Form from '../Form';
+import Climbs from '../Climb/Climbs';
+import Users from '../Users/Users';
+
+import { db } from "../../firebase-config";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+
 import './Dashboard.css';
+
 
 function Dashboard(){
 
   const[climbList, setClimbList] = useState([]);
+
   const[userList, setUserList] = useState([]);
   
+  const climbsCollectionRef = collection(db, "climbs");
+
   
+
+  useEffect(() => {
+    const getClimbs = async () => {
+      const data = await getDocs(climbsCollectionRef);
+      setClimbList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getClimbs();
+  }, []);
+
+
   const addClimb = (climb) => {
     const newClimbList =[climb,...climbList];
     newClimbList.sort((a, b) => (a.date>b.date ? -1 : 1))
@@ -66,16 +92,24 @@ function Dashboard(){
     
   }
 
+
   return (
     <div className='dashboard-container'> 
-        <Form onSubmit={addClimb}/>
-
-        <div className='climb-list-container'>
-          <h1 className='dash-title'>Recent Climbs</h1>
-          
-            <Climbs climbList={climbList} addLike={addLike} deleteClimb={deleteClimb}/>
+        <div className = 'dashboard-column-container'>
+          <h1 className='dash-title'>Submit a Climb</h1>
+          <Form onSubmit={addClimb}/>
         </div>
-        <div className='climber-list-container'>
+        
+
+        <div className='dashboard-column-container'>
+          <div className='dashboard-column-header'>
+            <h1 className='dash-title'>Recent Climbs</h1>
+          </div>
+          
+          
+          <Climbs climbList={climbList} addLike={addLike} deleteClimb={deleteClimb}/>
+        </div>
+        <div className='dashboard-column-container'>
           <h1 className='dash-title'>Climbers</h1>
           <Users userList={userList}/>
         </div>

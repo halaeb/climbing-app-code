@@ -5,6 +5,7 @@ import shoeLogo from './shoe-logo.svg';
 import likeIcon from './like-icon.svg';
 import starIcon from './star-icon.svg';
 
+
 const ClimbInstance = (props) => {
     const handleLikeClick =() => {
         props.handleLikeClick(props.climb);

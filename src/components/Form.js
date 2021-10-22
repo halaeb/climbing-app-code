@@ -12,7 +12,6 @@ function Form(props) {
       rating: '',
       likes: 0,
       id: 0,
-      comments: {},
   })
 
   const[idCounter, setIdCounter] = useState(0)
@@ -44,6 +43,7 @@ const handleGradeInputChange = (event) => {
   }
 
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
     props.onSubmit(climbInfo);
@@ -55,11 +55,8 @@ const handleGradeInputChange = (event) => {
 
   return (
     
-      <div className='form-container'>
+      
           <form className='form' onSubmit={handleSubmit}>
-              
-              
-              <h1 className='dash-title'>Submit a Climb</h1>
               <input
                   onChange={handleUsernameInputChange}
                   value={climbInfo.username}
@@ -113,11 +110,7 @@ const handleGradeInputChange = (event) => {
                   Submit
               </button>
 
-          </form>
-        </div>
-
-        
-      
+          </form>  
       
   )
 }

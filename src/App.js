@@ -1,8 +1,12 @@
 import React from 'react';
 import NavBar from './components/NavBar/NavBar'
 import Dashboard from './components/Dashboard/Dashboard';
+import DashboardTest from './components/Dashboard/DashboardTest';
+
 
 import './App.css';
+
+
 
 function App() {
   return (
