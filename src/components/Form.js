@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import './Dashboard/Dashboard.css';
 
 function Form(props) {
@@ -108,5 +109,13 @@ function Form(props) {
 
   );
 }
+
+Form.propTypes = {
+  onSubmit: PropTypes.func,
+};
+
+Form.defaultProps = {
+  onSubmit: () => {},
+};
 
 export default Form;

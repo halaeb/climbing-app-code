@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../Climb/Climb.css';
 import userLogo from './user-logo.svg';
 import shoeLogo from './shoe-logo.svg';
@@ -6,12 +7,7 @@ import likeIcon from './like-icon.svg';
 import starIcon from './star-icon.svg';
 
 const ClimbInstance = (props) => {
-  const handleLikeClick = () => {
-    props.handleLikeClick(props.climb);
-  };
-  const handleDeleteClick = () => {
-    props.handleDeleteClick(props.climb);
-  };
+  const { handleLikeClick, handleDeleteClick, climb } = props;
 
   return (
     <div className="climb-container">
@@ -19,16 +15,16 @@ const ClimbInstance = (props) => {
         <img src={userLogo} className="user-logo" alt="user logo" />
         <div>
           <div className="climb-data-heading">
-            {props.climb.username}
+            {climb.username}
           </div>
           <div className="climb-data-container">
             <div className="climb-data-subheading">
-              {props.climb.date}
+              {climb.date}
               {' '}
               |
             </div>
             <div className="climb-data-subheading">
-              {props.climb.gym}
+              {climb.gym}
             </div>
           </div>
         </div>
@@ -37,16 +33,16 @@ const ClimbInstance = (props) => {
         <img src={shoeLogo} className="user-logo" alt="climbing shoe" />
         <div className="climb-stats-container">
           <div className="climb-data-subheading">Climb Type</div>
-          <div>{props.climb.climbType}</div>
+          <div>{climb.climbType}</div>
         </div>
         <div className="climb-stats-container">
           <div className="climb-data-subheading">Grade</div>
-          <div>{props.climb.grade}</div>
+          <div>{climb.grade}</div>
         </div>
         <div className="climb-stats-container">
           <div className="climb-data-subheading">Rating</div>
           <div>
-            {props.climb.rating}
+            {climb.rating}
             <img src={starIcon} className="icon" alt="star" />
           </div>
         </div>
@@ -54,7 +50,7 @@ const ClimbInstance = (props) => {
 
       <div className="button-container">
         <h3>
-          {props.climb.likes}
+          {climb.likes}
           {' '}
           Likes
         </h3>
@@ -65,6 +61,34 @@ const ClimbInstance = (props) => {
       </div>
     </div>
   );
+};
+
+ClimbInstance.propTypes = {
+  handleLikeClick: PropTypes.func,
+  handleDeleteClick: PropTypes.func,
+  climb: PropTypes.shape({
+    username: PropTypes.string,
+    date: PropTypes.string,
+    gym: PropTypes.string,
+    climbType: PropTypes.string,
+    grade: PropTypes.string,
+    rating: PropTypes.string,
+    likes: PropTypes.number,
+  }),
+};
+
+ClimbInstance.defaultProps = {
+  handleLikeClick: () => {},
+  handleDeleteClick: () => {},
+  climb: {
+    username: '',
+    date: '',
+    gym: '',
+    climbType: '',
+    grade: '',
+    rating: '',
+    likes: 0,
+  },
 };
 
 export default ClimbInstance;

@@ -6,7 +6,7 @@ import {
 import Form from '../Form';
 import Climbs from '../Climb/Climbs';
 import Users from '../Users/Users';
-import { db } from '../../firebase-config';
+import db from '../../firebase-config';
 import './Dashboard.css';
 
 function Dashboard() {
